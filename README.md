@@ -1,2 +1,2 @@
 # NotRubec
-Unity test
+3D Cube game for testing Unity
