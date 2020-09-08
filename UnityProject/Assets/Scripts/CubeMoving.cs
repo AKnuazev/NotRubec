@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class CubeMoving : MonoBehaviour
     private bool rolling;
 
     public float speed;
+    public float delay;
 
     void Start()
     {
@@ -66,6 +68,7 @@ public class CubeMoving : MonoBehaviour
         }
         transform.RotateAround(point, axis, angle);
 
+        yield return new WaitForSeconds(delay);
         rolling = false;
     }
 
