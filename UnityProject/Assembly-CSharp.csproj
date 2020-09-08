@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraMoving.cs" />
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
+    <Compile Include="Assets\Scripts\TriggerCheck.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
