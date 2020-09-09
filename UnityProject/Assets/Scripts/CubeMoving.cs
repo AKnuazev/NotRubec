@@ -16,6 +16,9 @@ public class CubeMoving : MonoBehaviour
     public float speed;
     public float delay;
 
+    //[NonSerialized]
+    public static Vector3 previousPos;
+
     void Start()
     {
         bounds = GetComponent<MeshRenderer>().bounds;
@@ -24,6 +27,8 @@ public class CubeMoving : MonoBehaviour
         backRotationPoint = new Vector3(0, -bounds.extents.y, -bounds.extents.z);
         leftRotationPoint = new Vector3(-bounds.extents.x, -bounds.extents.y, 0);
         rightRotationPoint = new Vector3(bounds.extents.x, -bounds.extents.y, 0);
+
+        previousPos = transform.position;
     }
 
     void Update()
@@ -68,6 +73,7 @@ public class CubeMoving : MonoBehaviour
         }
         transform.RotateAround(point, axis, angle);
 
+        previousPos = transform.position;
         yield return new WaitForSeconds(delay);
         rolling = false;
     }
