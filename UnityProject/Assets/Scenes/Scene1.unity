@@ -396,6 +396,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2092976688527564405, guid: 5da1944d7b1197f4daf658ccdd8dcfff, type: 3}
   m_PrefabInstance: {fileID: 2092976690352355327}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2101619083 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2092976688527564404, guid: 5da1944d7b1197f4daf658ccdd8dcfff, type: 3}
+  m_PrefabInstance: {fileID: 2092976690352355327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101619082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c345ab7acf1131e49a82f8717eb276be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &347802173687115013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -403,6 +414,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 347802172135653377, guid: d7533584078109644b6c565dc44a6100, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2101619082}
+    - target: {fileID: 347802172135653377, guid: d7533584078109644b6c565dc44a6100, type: 3}
+      propertyPath: cubeMovingScript
+      value: 
+      objectReference: {fileID: 2101619083}
     - target: {fileID: 347802172135653382, guid: d7533584078109644b6c565dc44a6100, type: 3}
       propertyPath: m_Name
       value: ColorChecker
