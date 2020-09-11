@@ -9,15 +9,12 @@ public class CubeMoving : MonoBehaviour
                                                        // 1 - back
                                                        // 2 - left
                                                        // 3 - right
-    //private Vector3 forwardRotationPoint;
-    //private Vector3 backRotationPoint;
-    //private Vector3 leftRotationPoint;
-    //private Vector3 rightRotationPoint;
 
     public float speed;
     public float delay;
 
     private Bounds bounds;
+    private float edgeSize = 0.15f;
 
     [SerializeField]
     public Vector3 previousPos;
@@ -27,59 +24,48 @@ public class CubeMoving : MonoBehaviour
     [SerializeField]
     public bool movementFreeze; // 1 - player cant move
 
+    private GlobalVariables.SwipeData swipedata;
     void Start()
     {
         bounds = GetComponent<MeshRenderer>().bounds;
 
-        //forwardRotationPoint = new Vector3(0, -bounds.extents.y, bounds.extents.z);
-        //backRotationPoint = new Vector3(0, -bounds.extents.y, -bounds.extents.z);
-        //leftRotationPoint = new Vector3(-bounds.extents.x, -bounds.extents.y, 0);
-        //rightRotationPoint = new Vector3(bounds.extents.x, -bounds.extents.y, 0);
-
-        rotationPoints[0] = new Vector3(0, -bounds.extents.y, bounds.extents.z);
-        rotationPoints[1] = new Vector3(0, -bounds.extents.y, -bounds.extents.z);
-        rotationPoints[2] = new Vector3(-bounds.extents.x, -bounds.extents.y, 0);
-        rotationPoints[3] = new Vector3(bounds.extents.x, -bounds.extents.y, 0);
+        rotationPoints[0] = new Vector3(0, -bounds.extents.y - edgeSize, bounds.extents.z + edgeSize);
+        Debug.Log("0 " + rotationPoints[0]);
+        rotationPoints[1] = new Vector3(0, -bounds.extents.y - edgeSize, -bounds.extents.z - edgeSize);
+        Debug.Log("0 " + rotationPoints[1]);
+        rotationPoints[2] = new Vector3(-bounds.extents.x - edgeSize, -bounds.extents.y - edgeSize, 0);
+        Debug.Log("0 " + rotationPoints[2]);
+        rotationPoints[3] = new Vector3(bounds.extents.x + edgeSize, -bounds.extents.y - edgeSize, 0);
+        Debug.Log("0 " + rotationPoints[3]);
 
         previousPos = transform.position;
         rolling = false;
         movementFreeze = false;
-    }
 
-    public void startMoving(int direction)
-    {
-        previousPos = transform.position;
-        StartCoroutine(move(rotationPoints[direction]));
+        swipedata.direction = GlobalVariables.Direction.Stop;
+        SwipeDetector.onSwipe += GetSwipeDirection_onSwipe;
+        Debug.Log(swipedata.direction);
     }
-
     void Update()
     {
         if (rolling)
             return;
 
-        if (Input.GetKey("up") && movementFreeze == false)
+        if ((Input.GetKey("up") || swipedata.direction == GlobalVariables.Direction.Up) && movementFreeze == false)
         {
-            //StartCoroutine(move(forwardRotationPoint));
-            //startMoving(forwardRotationPoint);
-            startMoving(0);
+            StartMoving(0);
         }
-        else if (Input.GetKey("down") && movementFreeze == false)
+        else if ((Input.GetKey("down") || swipedata.direction == GlobalVariables.Direction.Down) && movementFreeze == false)
         {
-            //StartCoroutine(move(backRotationPoint));
-            //startMoving(backRotationPoint);
-            startMoving(1);
+            StartMoving(1);
         }
-        else if (Input.GetKey("left") && movementFreeze == false)
+        else if ((Input.GetKey("left") || swipedata.direction == GlobalVariables.Direction.Left) && movementFreeze == false)
         {
-            //StartCoroutine(move(leftRotationPoint));
-            //startMoving(leftRotationPoint);
-            startMoving(2);
+            StartMoving(2);
         }
-        else if (Input.GetKey("right") && movementFreeze == false)
+        else if ((Input.GetKey("right") || swipedata.direction == GlobalVariables.Direction.Right) && movementFreeze == false)
         {
-            //StartCoroutine(move(rightRotationPoint));
-            //startMoving(rightRotationPoint);
-            startMoving(3);
+            StartMoving(3);
         }
     }
 
@@ -90,6 +76,7 @@ public class CubeMoving : MonoBehaviour
         float angle = 90;
         float a = 0;
 
+        swipedata.direction = GlobalVariables.Direction.Stop;
         rolling = true;
 
         while (angle > 0)
@@ -104,10 +91,19 @@ public class CubeMoving : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // round up player position
-        transform.position = new Vector3((float)Math.Round((double)transform.position.x, 1),
-                                    (float)Math.Round((double)transform.position.y, 1),
+        transform.position = new Vector3((float)Math.Round((double)transform.position.x, 1), transform.position.y,
                                     (float)Math.Round((double)transform.position.z, 1));
         rolling = false;
     }
 
+    public void StartMoving(int direction)
+    {
+        previousPos = transform.position;
+        StartCoroutine(move(rotationPoints[direction]));
+    }
+
+    private void GetSwipeDirection_onSwipe(GlobalVariables.SwipeData data)
+    {
+        swipedata.direction = data.direction;
+    }
 }

@@ -56,11 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ColumnSpawnScript.cs" />
-    <Compile Include="Assets\Scripts\CameraMoving.cs" />
-    <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\Triggers\ColorChanger.cs" />
-    <Compile Include="Assets\Scripts\Triggers\ColorChecker.cs" />
+    <Compile Include="Assets\Scripts\SwipeDetector.cs" />
+    <Compile Include="Assets\Scripts\GlobalVariables.cs" />
     <Compile Include="Assets\Scripts\Triggers\EndChecker.cs" />
+    <Compile Include="Assets\Scripts\CameraMoving.cs" />
+    <Compile Include="Assets\Scripts\Triggers\ColorChecker.cs" />
+    <Compile Include="Assets\Scripts\CubeMoving.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

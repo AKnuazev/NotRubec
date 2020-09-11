@@ -11,8 +11,8 @@ public class ColorChecker : MonoBehaviour
 
     IEnumerator returnPlayer(int i)
     {
-        yield return new WaitForSeconds(1);
-        cubeMovingScript.startMoving(i);
+        yield return new WaitForSeconds(0.5f);
+        cubeMovingScript.StartMoving(i);
         cubeMovingScript.movementFreeze = false;
     }
     private void OnTriggerEnter(Collider other)
